@@ -1,0 +1,29 @@
+<%- include('../partials/header') %>
+
+<h1>My Watchlist! ♡</h1>
+
+<div class="filter">
+  <a href="/" class="chip <%= genreDipilih === '' ? 'active' : '' %>">Semua</a>
+  <% daftarGenre.forEach(g => { %>
+    <a href="/?genre=<%= encodeURIComponent(g) %>"
+       class="chip <%= genreDipilih.toLowerCase() === g.toLowerCase() ? 'active' : '' %>"><%= g %></a>
+  <% }) %>
+</div>
+
+<% if (films.length === 0) { %>
+  <p class="empty">Tidak ada film untuk genre ini.</p>
+<% } else { %>
+  <div class="grid">
+    <% films.forEach(f => { %>
+      <div class="card">
+        <img class="poster" src="/img/<%= f.poster %>" alt="Poster <%= f.judul %>">
+        <h2><%= f.judul %></h2>
+        <p class="meta"><%= f.sutradara %> &middot; <%= f.tahun %></p>
+        <span class="tag"><%= f.genre %></span>
+        <p><a class="btn" href="/item/<%= f.id %>">Lihat detail</a></p>
+      </div>
+    <% }) %>
+  </div>
+<% } %>
+
+<%- include('../partials/footer') %>

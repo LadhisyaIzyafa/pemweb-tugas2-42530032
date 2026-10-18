@@ -1,0 +1,172 @@
+/* ===== Reset & Box Model ===== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #2f1b1a;            /* cokelat gelap (palet) */
+  --bg-nav: #1f1211;        /* navbar, lebih gelap */
+  --surface: #3d2624;       /* kartu */
+  --surface-2: #54332f;     /* border & garis */
+  --text: #efefc9;          /* krem (palet) */
+  --muted: #c4b59b;         /* teks sekunder */
+  --accent: #8a1a2e;        /* burgundy (turunan #640017) */
+  --accent-border: #b3374c; /* tepi tombol */
+  --accent-text: #b9be63;   /* olive terang: judul kecil & titik navbar */
+  --olive: #5a5e27;         /* olive (palet): latar label genre */
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+a:focus-visible, .btn:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 2px;
+}
+
+/* ===== Navbar ===== */
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem 2rem;
+  background: var(--bg-nav);
+  border-bottom: 1px solid var(--surface-2);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.navbar a { color: var(--muted); text-decoration: none; transition: color .2s; }
+.navbar a:hover { color: var(--text); }
+.navbar .brand {
+  margin-right: auto;
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: .5px;
+  color: var(--text);
+}
+.navbar .brand::before { content: "🎞️ ▸ "; color: var(--accent-text); }
+
+/* ===== Layout ===== */
+.container { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+h1 { margin-bottom: 1rem; font-size: 1.8rem; }
+
+/* ===== Filter ===== */
+.filter { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.75rem; }
+.chip {
+  padding: .35rem 1rem;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--surface-2);
+  color: var(--muted);
+  text-decoration: none;
+  text-transform: capitalize;
+  font-size: .9rem;
+  transition: all .2s;
+}
+.chip:hover { color: var(--text); border-color: var(--muted); }
+.chip.active {
+  background: var(--accent);
+  border-color: var(--accent-border);
+  color: var(--text);
+  font-weight: 700;
+}
+
+/* ===== Grid & Kartu ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.25rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--surface-2);
+  border-radius: 10px;
+  padding: 1.5rem;
+}
+
+.grid .card {
+  padding: 0 0 1rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform .2s, box-shadow .2s;
+}
+.grid .card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgb(0 0 0 / 0.55);
+}
+/* isi kartu digeser pakai margin (bukan padding) supaya kotak label ikut rapi */
+.grid .card > :not(.poster) { margin-left: 1rem; margin-right: 1rem; }
+
+.poster {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  display: block;
+  margin-bottom: .75rem;
+}
+
+.card h2 { font-size: 1.05rem; margin-bottom: .15rem; line-height: 1.3; }
+.meta { color: var(--muted); font-size: .85rem; }
+
+.tag {
+  display: inline-block;
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+  padding: .1rem .65rem;
+  border-radius: 4px;
+  background: var(--olive);
+  color: var(--text);
+  font-size: .75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  align-self: flex-start;
+}
+
+/* ===== Tombol ===== */
+.btn {
+  display: inline-block;
+  margin-top: .5rem;
+  padding: .45rem 1rem;
+  background: var(--accent);
+  border: 1px solid var(--accent-border);
+  color: var(--text);
+  font-weight: 700;
+  font-size: .9rem;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: filter .2s;
+}
+.btn:hover { filter: brightness(1.2); }
+
+/* ===== Halaman Detail ===== */
+.detail { display: flow-root; padding: 2rem; }
+.poster-detail {
+  float: left;
+  width: 260px;
+  max-width: 45%;
+  border-radius: 8px;
+  margin: 0 1.75rem 1rem 0;
+  box-shadow: 0 10px 25px rgb(0 0 0 / 0.55);
+}
+.detail h1 { font-size: 2rem; margin-bottom: .25rem; }
+.detail h2 { margin-top: 1.25rem; font-size: 1.1rem; color: var(--accent-text); }
+.detail p { margin-bottom: .35rem; }
+
+/* ===== Lain-lain ===== */
+.empty { padding: 1rem 0; color: var(--muted); }
+.footer {
+  text-align: center;
+  margin: 3rem 0 2rem;
+  font-size: .85rem;
+  color: var(--muted);
+}
+
+@media (max-width: 600px) {
+  .poster-detail { float: none; display: block; max-width: 100%; margin: 0 auto 1.25rem; }
+}
